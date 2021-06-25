@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tobyduang.github.io</id>
-    <title>Gridea</title>
-    <updated>2021-06-25T14:54:33.585Z</updated>
+    <title>Toby&amp;Tobi&apos;s</title>
+    <updated>2021-06-25T14:56:17.957Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tobyduang.github.io"/>
     <link rel="self" href="https://tobyduang.github.io/atom.xml"/>
     <subtitle>my happy place</subtitle>
     <logo>https://tobyduang.github.io/images/avatar.png</logo>
     <icon>https://tobyduang.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, Gridea</rights>
+    <rights>All rights reserved 2021, Toby&amp;Tobi&apos;s</rights>
     <entry>
         <title type="html"><![CDATA[第一篇]]></title>
         <id>https://tobyduang.github.io/post/di-yi-pian/</id>
