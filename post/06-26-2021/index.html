@@ -1,0 +1,227 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>06-26-2021 | Toby&amp;Tobi&#39;s</title>
+<link rel="shortcut icon" href="https://tobyduang.github.io/favicon.ico?v=1624718524718">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://tobyduang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="06-26-2021 | Toby&amp;Tobi&#39;s - Atom Feed" href="https://tobyduang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="1. onclick事件和confirm弹窗
+在添加删除条目的“删除”按钮时（我实际的操作不是按钮而是添加超链接的“删除”文本），为了防止误触删除而导致的后果，给超链接添加了一个onclick引起的confirm弹窗询问用户是否确认删除。
+..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://tobyduang.github.io">
+  <img class="avatar" src="https://tobyduang.github.io/images/avatar.png?v=1624718524718" alt="">
+  </a>
+  <h1 class="site-title">
+    Toby&amp;Tobi&#39;s
+  </h1>
+  <p class="site-description">
+    my happy place
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/TobyDuang" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              06-26-2021
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-06-26
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><strong>1. onclick事件和confirm弹窗</strong><br>
+在添加删除条目的“删除”按钮时（我实际的操作不是按钮而是添加超链接的“删除”文本），为了防止误触删除而导致的后果，给超链接添加了一个onclick引起的confirm弹窗询问用户是否确认删除。<br>
+效果如下：<br>
+<img src="https://tobyduang.github.io/post-images/1624717139640.jpg" alt="" loading="lazy"><br>
+代码如下：</p>
+<pre><code class="language-php">&lt;a href=\&quot;crud/edit.php?tid={$row['ID']}\&quot; &gt;编辑&lt;/a&gt; |
+&lt;a href=\&quot;crud/delete.php?tid={$row['ID']}\&quot;onclick=\&quot;if(confirm('确定删除?')==false)return false;\&quot;&gt;删除&lt;/a&gt;
+</code></pre>
+<p>上面本来是一行代码，为方便观看才拆开。第一行是删除之前的编辑，没有确认环节，因为误触也不会有危险。第一行最后是分割两个按钮的竖线。<br>
+第二行是删除部分，首先给出删除的话要执行的超链接</p>
+<pre><code class="language-php">    href=\&quot;crud/delete.php?tid={$row['ID']}\&quot;
+</code></pre>
+<p>然后的部分是用来询问的。onclick 是点击超链接文本、按钮后触发的事件，confirm是询问弹窗。此处代码意为点击超文本后confirm弹窗询问，如果confirm弹窗得到false（即用户点“取消”），则返回false，返回false的话onclick前的超链接就不会被执行。<font color="red">需要注意的是，判断的代码不能用</font></p>
+<pre><code class="language-php">if(confirm('确定删除?')==true)return true;
+</code></pre>
+<p>因为这样即便confirm的结果是false也不会传递到onclick上，会导致即使点取消也会删除词条。</p>
+<p>“confirm()是一个函数，而confirm是有返回值的。然后onclick函数需要一个返回值，如果不是return confirm()，那么onclick接受到返回值就是undefined，那么a本身的默认函数就会被触发。return false，会产生event.preventDefault()的效果。”（来源于https://blog.csdn.net/huahua000111/article/details/69950322）</p>
+<p><strong>2. PHP、mysql、HTML中PHP变量的解析规则：&quot;&quot;, '', {}</strong><br>
+以下内容来自https://www.cnblogs.com/linqingvoe/p/10909777.html</p>
+<ol>
+<li>mysql中加php变量，第一种方法是用{}来区分变量<br>
+举个栗子：</li>
+</ol>
+<pre><code class="language-sql">SELECT *  FROM table WHERE city='{$city}' AND state='{$state}'
+</code></pre>
+<p>括号内即为php的变量。在此我发现也有不同的写法，例如：</p>
+<pre><code class="language-sql">ORDER BY m.dateline DESC LIMIT {$offset},{$page_size}
+</code></pre>
+<p><font color="red">数字的话，加{}就可以。字符串的话需要带上单引号：'{}'，{}代表括号里面是变量</font></p>
+<ol start="2">
+<li>第二种方法，用&quot;.$v.&quot;来连接：</li>
+</ol>
+<p>举个栗子：&quot;insert into table_book (bookname,seekwords,author,state,foldername) values ('&quot;.$vv.'&quot;,5,10,15,20)&quot;;</p>
+<p>需要注意的是，字符串是需要加双引号的，这就涉及到<font color="red">php的基础知识，“双引号解析变量，单引号不解析变量”</font></p>
+<p>以下例子来自韩老师：</p>
+<pre><code class="language-php">&lt;?php
+$var = &quot;星期天&quot;;
+
+echo '今天是 $var 。'; //单引号包括变量时，变量无法正常输出
+
+echo &quot;今天是 $var 。&quot;; //双引号包括变量时，变量可以正常输出
+
+echo &quot;今天是{$var}。&quot;; //双引号内包括变量时，如果在变量两边加上{}，变量可以正常输出
+
+echo &quot;今天是&quot;.$var.&quot;。&quot;; //把变量和字符串用点号（.）连接时，变量可以正常输出
+
+echo &quot;今天是&quot;.&quot;$var&quot;.&quot;。&quot;; //双引号包括变量时，变量可以正常输出
+
+echo &quot;今天是&quot;.'$var'.&quot;。&quot;; //单引号包括变量时，变量无法正常输出
+
+echo &quot;今天是&quot;.&quot;{$var}&quot;.&quot;。&quot;; //双引号内包括变量时，如果在变量两边加上{}，变量可以正常输出
+
+echo &quot;今天是&quot;.'{$var}'.&quot;。&quot;; //单引号包括变量时，变量无法正常输出
+
+?&gt;
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://tobyduang.github.io/post/di-yi-pian/">
+              <h3 class="post-title">
+                ＨＥＬＬＯ　ＷＯＲＬＤ
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://tobyduang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
