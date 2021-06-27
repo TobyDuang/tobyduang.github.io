@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>06-26-2021 | Toby&amp;Tobi&#39;s</title>
-<link rel="shortcut icon" href="https://tobyduang.github.io/favicon.ico?v=1624718524718">
+<link rel="shortcut icon" href="https://tobyduang.github.io/favicon.ico?v=1624774644919">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://tobyduang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="06-26-2021 | Toby&amp;Tobi&#39;s - Atom Feed" href="https://tobyduang.github.io/atom.xml">
@@ -23,7 +23,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://tobyduang.github.io">
-  <img class="avatar" src="https://tobyduang.github.io/images/avatar.png?v=1624718524718" alt="">
+  <img class="avatar" src="https://tobyduang.github.io/images/avatar.png?v=1624774644919" alt="">
   </a>
   <h1 class="site-title">
     Toby&amp;Tobi&#39;s
@@ -87,7 +87,7 @@
                 2021-06-26
               </span>
               <span>
-                4 min read
+                5 min read
               </span>
               
             </div>
@@ -149,8 +149,17 @@ echo &quot;今天是&quot;.&quot;{$var}&quot;.&quot;。&quot;; //双引号内包
 echo &quot;今天是&quot;.'{$var}'.&quot;。&quot;; //单引号包括变量时，变量无法正常输出
 
 ?&gt;
-
 </code></pre>
+<p><strong>3.目录路径的表达</strong><br>
+一个php文件中的默认路径并不是项目的根路径，而是这个文件所在的文件夹，如myterm这个项目中：<br>
+C:\xampp\htdocs\myterm\crud\edit.php这个文件的默认路径是C:\xampp\htdocs\myterm\crud\，而项目的根路径是C:\xampp\htdocs\myterm\。用include举个例子：</p>
+<pre><code class="language-php">&lt;?php include &quot;foot.php&quot;; ?&gt;
+</code></pre>
+<p>上面这串代码意味着foot.php的路径是C:\xampp\htdocs\myterm\crud\foot.php。<br>
+但是head、foot这样的共用代码常会放到根目录里的专门存放共用代码的文件夹里，比如放在了：C:\xampp\htdocs\myterm\shared 这个文件夹里。那么上面的代码就要改成：</p>
+<pre><code class="language-php">&lt;?php include &quot;../shared/foot.php&quot;; ?&gt;
+</code></pre>
+<p>其中<font color="red"><b>../</b></font>的意思就是上一级文件夹，而本级文件夹是<font color="red"><b>./</b></font>，但一般不需要写，因为是默认的</p>
 
               </div>
               <div class="toc-container">
